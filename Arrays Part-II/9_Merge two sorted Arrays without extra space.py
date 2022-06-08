@@ -4,19 +4,34 @@ https://www.codingninjas.com/codestudio/problems/1214628?topList=striver-sde-she
 https://leetcode.com/problems/merge-sorted-array/
 """
 
+import math
 
-class Solution:
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-        tmp_nums1 = nums1[:m]
+def ninjaAndSortedArrays(arr1,arr2,n, m):
+    n = len(arr1)
+    m = len(arr2)
+    gap = math.ceil((n+m)/2)
+    while gap > 0:
+        i = 0
+        j = gap
+        while j < (n + m):
+            if j < n and arr1[i] > arr1[j]:
+                arr1[i], arr1[j] = arr1[j], arr1[i]
+            elif j >= n and i < n and arr1[i] > arr2[j - n]:
+                arr1[i], arr2[j-n] = arr2[j-n], arr1[i]
+            elif j >= n and i >= n and arr2[i - n] > arr2[j - n]:
+                arr2[i - n], arr2[j - n] = arr2[j - n], arr2[i - n]
+            j += 1
+            i += 1
+        if gap == 1:
+            gap = 0
+        else:
+            gap = math.ceil(gap/2)
 
-        p1 = 0
-        p2 = 0
 
-        for p in range(n + m):
-
-            if p2 >= n or (p1 < m and tmp_nums1[p1] <= nums2[p2]):
-                nums1[p] = tmp_nums1[p1]
-                p1 += 1
-            else:
-                nums1[p] = nums2[p2]
-                p2 += 1
+for _ in range(int(input())):
+    m, n = map(int, input().split())
+    arr1 = [int(i) for i in input().split()]
+    arr2 = [int(i) for i in input().split()]
+    ninjaAndSortedArrays(arr1, arr2, m, n)
+    print(arr1)
+    print(arr2)
