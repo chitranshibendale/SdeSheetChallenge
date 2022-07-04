@@ -4,15 +4,15 @@ from sys import stdin
 def nextGreater(arr, n):
     stack = []
     ans = [-1]*n
-    for i in range(2*n - 1, -1, -1):
-        while stack and stack[-1] <= arr[i%n]:
+    for i in range(n - 1, -1, -1):
+        while stack and stack[-1] <= arr[i]:
             stack.pop()
         if i < n:
             if stack:
                 ans[i] = stack[-1]
             else:
                 ans[i] = -1
-        stack.append(arr[i%n])
+        stack.append(arr[i])
     return ans
 
 
